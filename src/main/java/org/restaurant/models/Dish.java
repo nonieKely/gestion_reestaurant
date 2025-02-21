@@ -21,6 +21,10 @@ public class Dish {
         this.unit_price = unit_price;
     }
 
+    public Dish() {
+
+    }
+
     public int getId_dish() {
         return id_dish;
     }
