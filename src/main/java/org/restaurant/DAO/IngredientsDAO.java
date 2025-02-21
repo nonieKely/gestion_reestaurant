@@ -49,8 +49,17 @@ public class IngredientsDAO {
 
         for (Criterias criteria : criteriasList) {
             if (validColumns.contains(criteria.getColumn())) {
-                sql.append(" AND ").append(criteria.getColumn()).append(" LIKE ?");
-                param.add("%" + criteria.getValue() + "%");
+                if ("unit_price".equals(criteria.getColumn()) || "update_datetime".equals(criteria.getColumn())) {
+                    String[] values = criteria.getValue().split(",");
+                    if (values.length == 2) {
+                        sql.append(" AND ").append(criteria.getColumn()).append(" BETWEEN ? AND ?");
+                        param.add(values[0]);
+                        param.add(values[1]);
+                    }
+                } else {
+                    sql.append(" AND ").append(criteria.getColumn()).append(" LIKE ?");
+                    param.add("%" + criteria.getValue() + "%");
+                }
             }
         }
 
@@ -94,4 +103,5 @@ public class IngredientsDAO {
 
         return ingredients;
     }
+
 }

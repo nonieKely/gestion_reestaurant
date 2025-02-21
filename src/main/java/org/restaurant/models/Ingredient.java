@@ -53,7 +53,7 @@ public class Ingredient {
         this.unit = unit;
     }
 
-    public LocalDateTime getUpdate_dateTime(String updateDateTime) {
+    public LocalDateTime getUpdate_dateTime() {
         return update_dateTime;
     }
 
