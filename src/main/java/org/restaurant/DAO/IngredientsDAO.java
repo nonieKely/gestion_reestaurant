@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 public class IngredientsDAO {
 
-    public int getTotalPrice(String dishName) {
+    public int getIngredientCost(String dishName) {
         int totalPrice = 0;
         String sql = "SELECT SUM(i.unit_price * di.required_quantity) AS total_ingredient_price " +
                 "FROM dish d " +
