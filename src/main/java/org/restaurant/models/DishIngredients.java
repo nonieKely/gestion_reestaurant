@@ -1,39 +1,41 @@
 package org.restaurant.models;
 
+import java.math.BigDecimal;
+
 public class DishIngredients {
-    private String id_Dish;
-    private String id_ingredient;
-    private int required_quantity;
+    private int id_Dish;
+    private int id_ingredient;
+    private BigDecimal required_quantity;
     private Unit unit;
 
-    public DishIngredients(String id_Dish, String id_ingredient, int required_quantity, Unit unit) {
+    public DishIngredients(int id_Dish, int id_ingredient, BigDecimal required_quantity, Unit unit) {
         this.id_Dish = id_Dish;
         this.id_ingredient = id_ingredient;
         this.required_quantity = required_quantity;
         this.unit = unit;
     }
 
-    public String getId_Dish() {
+    public int getId_Dish() {
         return id_Dish;
     }
 
-    public void setId_Dish(String id_Dish) {
+    public void setId_Dish(int id_Dish) {
         this.id_Dish = id_Dish;
     }
 
-    public String getId_ingredient() {
+    public int getId_ingredient() {
         return id_ingredient;
     }
 
-    public void setId_ingredient(String id_ingredient) {
+    public void setId_ingredient(int id_ingredient) {
         this.id_ingredient = id_ingredient;
     }
 
-    public int getRequired_quantity() {
+    public BigDecimal getRequired_quantity() {
         return required_quantity;
     }
 
-    public void setRequired_quantity(int required_quantity) {
+    public void setRequired_quantity(BigDecimal required_quantity) {
         this.required_quantity = required_quantity;
     }
 

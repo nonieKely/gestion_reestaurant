@@ -3,13 +3,13 @@ package org.restaurant.models;
 import java.time.LocalDateTime;
 
 public class Ingredient {
-    private String id_ingredient;
+    private int id_ingredient;
     private String name;
     private int unit_price;
     private Unit unit ;
     private LocalDateTime update_dateTime;
 
-    public Ingredient(String id_ingredient, String name, int unit_price, Unit unit, LocalDateTime update_dateTime) {
+    public Ingredient(int id_ingredient, String name, int unit_price, Unit unit, LocalDateTime update_dateTime) {
         this.id_ingredient = id_ingredient;
         this.name = name;
         this.unit_price = unit_price;
@@ -17,11 +17,15 @@ public class Ingredient {
         this.update_dateTime = update_dateTime;
     }
 
-    public String getId_ingredient() {
+    public Ingredient() {
+
+    }
+
+    public int getId_ingredient() {
         return id_ingredient;
     }
 
-    public void setId_ingredient(String id_ingredient) {
+    public void setId_ingredient(int id_ingredient) {
         this.id_ingredient = id_ingredient;
     }
 
@@ -49,7 +53,7 @@ public class Ingredient {
         this.unit = unit;
     }
 
-    public LocalDateTime getUpdate_dateTime() {
+    public LocalDateTime getUpdate_dateTime(String updateDateTime) {
         return update_dateTime;
     }
 

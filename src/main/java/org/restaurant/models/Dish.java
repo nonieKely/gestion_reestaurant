@@ -3,29 +3,29 @@ package org.restaurant.models;
 import java.util.ArrayList;
 
 public class Dish {
-    private String id_dish;
+    private int id_dish;
     private String name;
     private int unit_price;
     private ArrayList<Ingredient> ingredients = new ArrayList<>();
 
-    public Dish(String id_dish, String name, int unit_price, ArrayList<Ingredient> ingredients) {
+    public Dish(int id_dish, String name, int unit_price, ArrayList<Ingredient> ingredients) {
         this.id_dish = id_dish;
         this.name = name;
         this.unit_price = unit_price;
         this.ingredients = ingredients;
     }
 
-    public Dish(String id_dish, String name, int unit_price) {
+    public Dish(int id_dish, String name, int unit_price) {
         this.id_dish = id_dish;
         this.name = name;
         this.unit_price = unit_price;
     }
 
-    public String getId_dish() {
+    public int getId_dish() {
         return id_dish;
     }
 
-    public void setId_dish(String id_dish) {
+    public void setId_dish(int id_dish) {
         this.id_dish = id_dish;
     }
 
