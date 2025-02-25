@@ -3,7 +3,9 @@ CREATE TABLE dish (
     name VARCHAR(255) NOT NULL,
     unit_price INTEGER NOT NULL
 );
+
 CREATE TYPE Unit AS ENUM ('G', 'L', 'U');
+
 CREATE TABLE ingredient (
     id_ingredient SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
@@ -11,6 +13,7 @@ CREATE TABLE ingredient (
     unit Unit NOT NULL,
     update_datetime TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
 CREATE TABLE dish_ingredient (
     id_dish INTEGER NOT NULL,
     id_ingredient INTEGER NOT NULL,
@@ -19,6 +22,15 @@ CREATE TABLE dish_ingredient (
     PRIMARY KEY (id_dish, id_ingredient),
     FOREIGN KEY (id_dish) REFERENCES dish(id_dish) ON DELETE CASCADE,
     FOREIGN KEY (id_ingredient) REFERENCES ingredient(id_ingredient) ON DELETE CASCADE
+);
+
+CREATE TABLE ingredientDate (
+    id_ingredient INTEGER NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    price INTEGER NOT NULL,
+    unit Unit not null
+    date_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_ingredient) REFERENCES ingredient(id_ingredient)
 );
 
 
