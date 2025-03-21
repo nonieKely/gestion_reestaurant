@@ -30,6 +30,17 @@ public class DishOrder {
         this.dateTime = dateTime;
     }
 
+    public DishOrder(int id_order, Dish dish, int quantity) {
+        this.id_order = id_order;
+        this.dish = dish;
+        this.quantity = quantity;
+    }
+
+    public DishOrder(Dish dish, int quantity) {
+        this.dish = dish;
+        this.quantity = quantity;
+    }
+
     public int getId_dish_order() {
         return id_dish_order;
     }

@@ -1,12 +1,12 @@
-CREATE TYPE status AS ENUM ('CRÉE', 'CONFIRMÉ', 'EN PRÉPARATION', 'TEMRINÉ', 'SERVI');
+CREATE TYPE status AS ENUM ('CRÉE', 'CONFIRMÉ', 'EN PRÉPARATION', 'TERMINÉ', 'SERVI');
 
---la commande du client en general
+-- La commande du client en général
 CREATE TABLE one_order (
     id_order SERIAL PRIMARY KEY NOT NULL,
-    datetime TIMESTAMP NOT NULL
+    datetime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
--- chaque plat compris dans la commande ayant l'id specifique
+-- Chaque plat compris dans la commande ayant l'id spécifique
 CREATE TABLE dish_order(
     id_dish_order SERIAL PRIMARY KEY NOT NULL,
     id_order INTEGER NOT NULL,
@@ -16,20 +16,20 @@ CREATE TABLE dish_order(
     FOREIGN KEY (id_dish) REFERENCES dish(id_dish) ON DELETE CASCADE
 );
 
---status de la commande en generale à une date précise
+-- Status de la commande en général à une date précise
 CREATE TABLE order_status (
     id_order_status SERIAL PRIMARY KEY NOT NULL,
     id_order INTEGER NOT NULL,
     status status NOT NULL,
-    datetime TIMESTAMP NOT NULL,
+    datetime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_order) REFERENCES one_order(id_order) ON DELETE CASCADE
 );
 
--- status de chaque plat commandé à une date précise
+-- Status de chaque plat commandé à une date précise
 CREATE TABLE dish_order_status (
     id_dish_order_status SERIAL PRIMARY KEY NOT NULL,
-    id_dish_order INTEGER NOT NULL,
+    id_dish_order INTEGER,
     status status NOT NULL,
-    datetime TIMESTAMP NOT NULL,
+    datetime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_dish_order) REFERENCES dish_order(id_dish_order) ON DELETE CASCADE
 );

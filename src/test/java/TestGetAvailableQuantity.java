@@ -9,7 +9,7 @@ public class TestGetAvailableQuantity {
     void testGetAvailableQuantity_ShouldReturnSpecificAvailableStockForIngredient() {
         int id_ingredient = 3;
 
-        DishIngredients dishIngredient = new DishIngredients(id_ingredient, 0);  // On met required_quantity à 0 car on ne l'utilise pas ici
+        DishIngredients dishIngredient = new DishIngredients(id_ingredient, 0);
 
         Double actual = dishIngredient.getAvalaibleQuantity();
         Double expected = 80.0;

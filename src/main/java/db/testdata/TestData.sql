@@ -42,3 +42,17 @@ VALUES
 ('Sel', 2.5 , 'G'),
 ('Riz', 3.5 , 'G');
 
+
+INSERT INTO one_order (datetime)
+VALUES ('2025-02-06 14:00:00');
+
+INSERT INTO dish_order (id_order, id_dish, quantity)
+VALUES (1, 1, 2);
+
+INSERT INTO order_status (id_order, status, datetime)
+VALUES (1, 'CONFIRMÉ', '2025-02-06 14:05:00');
+
+INSERT INTO dish_order_status (id_dish_order, status, datetime)
+VALUES
+(1, 'EN PRÉPARATION', '2025-02-06 14:10:00'),
+(1, 'SERVI', '2025-02-06 14:30:00');
