@@ -12,10 +12,11 @@ public class TestAddDishOrder {
         Dish dish = new Dish();
         dish.setId_dish(1);
         int quantity = 2;
+        int id_order = 1;
 
         DishOrderDAO dishOrderDAO = new DishOrderDAO();
 
-        String result = dishOrderDAO.addDishOrder(dish, quantity);
+        String result = dishOrderDAO.addDishOrder(id_order, dish, quantity);
 
         assertEquals("Commande ajoutée avec succès", result, "La commande n'a pas été ajoutée correctement.");
     }

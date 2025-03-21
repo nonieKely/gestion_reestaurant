@@ -20,16 +20,17 @@ CREATE TABLE dish_order(
 CREATE TABLE order_status (
     id_order_status SERIAL PRIMARY KEY NOT NULL,
     id_order INTEGER NOT NULL,
-    status status NOT NULL,
+    status status NOT NULL DEFAULT 'CRÉE',
     datetime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_order) REFERENCES one_order(id_order) ON DELETE CASCADE
 );
+
 
 -- Status de chaque plat commandé à une date précise
 CREATE TABLE dish_order_status (
     id_dish_order_status SERIAL PRIMARY KEY NOT NULL,
     id_dish_order INTEGER,
-    status status NOT NULL,
+    status status NOT NULL DEFAULT 'CONFIRMÉ',
     datetime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_dish_order) REFERENCES dish_order(id_dish_order) ON DELETE CASCADE
 );

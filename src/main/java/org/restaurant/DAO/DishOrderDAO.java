@@ -51,40 +51,26 @@ public class DishOrderDAO {
         return dishOrder;
     }
 
-    public String addDishOrder(Dish dish, int quantity) {
-        String sql1 = "INSERT INTO one_order DEFAULT VALUES";
+    public String addDishOrder(int id_order, Dish dish, int quantity) {
         String sql2 = "INSERT INTO dish_order(id_order, id_dish, quantity) VALUES(?, ?, ?)";
 
         try (Connection connection = ConnectionDB.connection()) {
+            try (PreparedStatement preparedStatement2 = connection.prepareStatement(sql2)) {
+                preparedStatement2.setInt(1, id_order);
+                preparedStatement2.setInt(2, dish.getId_dish());
+                preparedStatement2.setInt(3, quantity);
 
-
-            try (PreparedStatement preparedStatement1 = connection.prepareStatement(sql1, PreparedStatement.RETURN_GENERATED_KEYS)) {
-                preparedStatement1.executeUpdate();
-
-                ResultSet resultSet = preparedStatement1.getGeneratedKeys();
-                if (resultSet.next()) {
-                    int generatedIdOrder = resultSet.getInt(1);
-
-                    try (PreparedStatement preparedStatement2 = connection.prepareStatement(sql2)) {
-                        preparedStatement2.setInt(1, generatedIdOrder);
-                        preparedStatement2.setInt(2, dish.getId_dish());
-                        preparedStatement2.setInt(3, quantity);
-
-                        int rowsAffected = preparedStatement2.executeUpdate();
-                        if (rowsAffected > 0) {
-                            return "Commande ajoutée avec succès";
-                        } else {
-                            return "Erreur lors de l'ajout du plat à la commande";
-                        }
-                    }
+                int rowsAffected = preparedStatement2.executeUpdate();
+                if (rowsAffected > 0) {
+                    return "Commande ajoutée avec succès";
                 } else {
-                    return "Erreur lors de la création de la commande";
+                    return "Erreur lors de l'ajout du plat à la commande";
                 }
             }
-
         } catch (SQLException e) {
             throw new RuntimeException("Erreur lors de l'ajout de la commande: " + e.getMessage(), e);
         }
     }
+
 
 }
