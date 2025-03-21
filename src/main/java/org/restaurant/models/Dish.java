@@ -84,7 +84,13 @@ public class Dish {
             Double quantity = ingredient.getAvalaibleQuantity();
             Double requiredQuantity = ingredient.getRequired_quantity();
 
-            int possibleDish = (int) Math.floor(quantity/requiredQuantity);
+            System.out.println("Ingredient ID: " + ingredient.getId_ingredient());
+            System.out.println("Available Quantity: " + quantity);
+            System.out.println("Required Quantity: " + requiredQuantity);
+
+
+            int possibleDish = (int) Math.floor(quantity / requiredQuantity);
+            System.out.println("result : " + possibleDish );
             possibilities.add(possibleDish);
         }
         return Collections.min(possibilities);
