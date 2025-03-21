@@ -11,6 +11,7 @@ CREATE TABLE dish_order(
     id_dish_order SERIAL PRIMARY KEY NOT NULL,
     id_order INTEGER NOT NULL,
     id_dish INTEGER NOT NULL,
+    quantity INTEGER NOT NULL,
     FOREIGN KEY (id_order) REFERENCES one_order(id_order) ON DELETE CASCADE,
     FOREIGN KEY (id_dish) REFERENCES dish(id_dish) ON DELETE CASCADE
 );
