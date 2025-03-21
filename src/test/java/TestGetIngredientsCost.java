@@ -1,23 +1,18 @@
 import org.junit.jupiter.api.Test;
-import org.restaurant.DAO.IngredientsDAO;
+import org.restaurant.models.Dish;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
 public class TestGetIngredientsCost {
 
+    @Test
+    void testGetIngredientCost_Hotdog_ShouldReturn5500() {
+        Dish dish = new Dish();
+        dish.setId_dish(1);
 
-        @Test
-        void testGetIngredientCost_Hotdog_ShouldReturn5500() {
+        double actualCost = dish.getIngredientCost();
+        double expectedCost = 5500.0;
 
-            String dishName = "Hot Dog";
-            int expectedCost = 5500;
-
-            IngredientsDAO ingredientsDAO = new IngredientsDAO();
-            int actualCost = ingredientsDAO.getIngredientCost(dishName);
-
-            assertEquals(expectedCost, actualCost, "The total cost should be 5500");
-        }
+        assertEquals(expectedCost, actualCost, 0.01, "The total cost should be 5500");
     }
-
-
+}

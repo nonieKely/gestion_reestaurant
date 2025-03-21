@@ -13,33 +13,53 @@ import java.util.List;
 
 public class IngredientHistoryDAO {
 
-    public List<IngredientDate> getHistory(String ingredientName){
-        List<IngredientDate> listOfupdates = new ArrayList<>();
-        String sql = "SELECT * FROM ingredientdate WHERE ingredientdate.name = ?";
+    public List<IngredientDate> getHistoryById(int id_history) {
+        List<IngredientDate> listOfHistory = new ArrayList<>();
+        String sql = "SELECT * FROM ingredientdate WHERE ingredientdate.id_history = ?";
 
-        try(Connection connection = ConnectionDB.connection();
-            PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+        try (Connection connection = ConnectionDB.connection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
-            preparedStatement.setString(1, ingredientName);
+            preparedStatement.setInt(1, id_history);
 
-            try(ResultSet resultSet = preparedStatement.executeQuery()){
-                while(resultSet.next()){
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
                     IngredientDate history = new IngredientDate();
                     history.setId_ingredient(resultSet.getInt("id_ingredient"));
                     history.setName(resultSet.getString("name"));
-                    history.setPrice(resultSet.getInt("price"));
+                    history.setPrice(resultSet.getDouble("price"));
                     history.setUnit(Unit.valueOf(resultSet.getString("unit")));
                     history.setDate(resultSet.getTimestamp("date_time").toLocalDateTime());
-                    listOfupdates.add(history);
+
+
+                    history.setId_history(123);
+
+                    listOfHistory.add(history);
                 }
             }
 
-        }catch(SQLException e){
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
-        return listOfupdates;
+        return listOfHistory;
     }
 
+    public void addMovement(IngredientDate parameter) {
+        String sql = "INSERT INTO ingredientdate (id_ingredient, name, price, unit) VALUES (? , ? , ? , ?::unit)";
 
+        try (Connection connection = ConnectionDB.connection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setInt(1, parameter.getId_ingredient());
+            preparedStatement.setString(2, parameter.getName());
+            preparedStatement.setDouble(3, parameter.getPrice());
+            preparedStatement.setString(4, parameter.getUnit().name());
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

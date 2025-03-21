@@ -1,5 +1,4 @@
 import org.junit.jupiter.api.Test;
-import org.restaurant.DAO.DishDAO;
 import org.restaurant.models.Dish;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -8,24 +7,24 @@ public class TestDish {
 
     @Test
     public void testFindById_ShouldReturnDish_WhenDishExists() {
-        DishDAO dishDAO = new DishDAO();
-        int dishId = 1;
+        Dish dish = new Dish();
+        dish.setId_dish(1);
 
-        Dish dish = dishDAO.findById(dishId);
+        Dish foundDish = dish.findDishById();
 
-        assertNotNull(dish);
-        assertEquals(dishId, dish.getId_dish());
-        assertEquals("Hot Dog", dish.getName());
-        assertEquals(15000, dish.getUnit_price());
+        assertNotNull(foundDish, "Dish should not be null");
+        assertEquals(1, foundDish.getId_dish(), "ID should match");
+        assertEquals("Hot Dog", foundDish.getName(), "Name should match");
+        assertEquals(15000, foundDish.getUnit_price(), 0.01, "Price should match");
     }
 
     @Test
     public void testFindById_ShouldReturnNull_WhenDishDoesNotExist() {
-        DishDAO dishDAO = new DishDAO();
-        int nonExistingDishId = 9999;
+        Dish dish = new Dish();
+        dish.setId_dish(9999);
 
-        Dish dish = dishDAO.findById(nonExistingDishId);
+        Dish foundDish = dish.findDishById();
 
-        assertNull(dish);
+        assertNull(foundDish, "Dish should be null for non-existing ID");
     }
 }

@@ -1,21 +1,25 @@
 package org.restaurant.models;
 
+import org.restaurant.DAO.DishDAO;
+import org.restaurant.DAO.IngredientsDAO;
+
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Dish {
     private int id_dish;
     private String name;
-    private int unit_price;
-    private ArrayList<Ingredient> ingredients = new ArrayList<>();
+    private double unit_price;
+    private ArrayList<DishIngredients> ingredients = new ArrayList<>();
 
-    public Dish(int id_dish, String name, int unit_price, ArrayList<Ingredient> ingredients) {
+    public Dish(int id_dish, String name, double unit_price, ArrayList<DishIngredients> ingredients) {
         this.id_dish = id_dish;
         this.name = name;
         this.unit_price = unit_price;
         this.ingredients = ingredients;
     }
 
-    public Dish(int id_dish, String name, int unit_price) {
+    public Dish(int id_dish, String name, double unit_price) {
         this.id_dish = id_dish;
         this.name = name;
         this.unit_price = unit_price;
@@ -23,6 +27,11 @@ public class Dish {
 
     public Dish() {
 
+    }
+
+    public Dish(int id_dish, ArrayList<DishIngredients> ingredients) {
+        this.id_dish = id_dish;
+        this.ingredients = ingredients;
     }
 
     public int getId_dish() {
@@ -41,19 +50,44 @@ public class Dish {
         this.name = name;
     }
 
-    public int getUnit_price() {
+    public double getUnit_price() {
         return unit_price;
     }
 
-    public void setUnit_price(int unit_price) {
+    public void setUnit_price(double unit_price) {
         this.unit_price = unit_price;
     }
 
-    public ArrayList<Ingredient> getIngredients() {
+    public ArrayList<DishIngredients> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(ArrayList<Ingredient> ingredients) {
+    public void setIngredients(ArrayList<DishIngredients> ingredients) {
         this.ingredients = ingredients;
     }
+
+    public double getIngredientCost(){
+        double ingredientsDAO = new IngredientsDAO().getIngredientCost(id_dish);
+
+        return ingredientsDAO;
+    }
+
+    public Dish findDishById(){
+        Dish DishDAO = new DishDAO().findById(id_dish);
+
+        return DishDAO;
+    }
+
+    public int getAvailableDish(){
+        ArrayList<Integer> possibilities = new ArrayList<>();
+        for (DishIngredients ingredient : ingredients){
+            Double quantity = ingredient.getAvalaibleQuantity();
+            Double requiredQuantity = ingredient.getRequired_quantity();
+
+            int possibleDish = (int) Math.floor(quantity/requiredQuantity);
+            possibilities.add(possibleDish);
+        }
+        return Collections.min(possibilities);
+    }
+
 }

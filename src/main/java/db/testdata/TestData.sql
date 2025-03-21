@@ -22,3 +22,23 @@ INSERT INTO ingredientdate (id_ingredient, name, price, unit, date_time)
 VALUES
     (1, 'Saucisse', 18, 'G', '2025-01-17 09:00:00'),
     (3, 'Oeuf', 800, 'U', '2025-02-06 12:00:00');
+
+INSERT INTO stock (id_ingredient, movement, used_quantity, unit, date_time)
+VALUES
+    (3, 'entrée', 100, 'U', '2025-02-01 08:00:00'),
+    (4, 'entrée', 50, 'U', '2025-02-01 08:00:00'),
+    (1, 'entrée', 10000, 'G', '2025-02-01 08:00:00'),
+    (2, 'entrée', 20, 'L', '2025-02-01 08:00:00');
+
+
+INSERT INTO stock (id_ingredient, movement, used_quantity, unit, date_time)
+VALUES
+(3, 'sortie', 10, 'U', '2025-02-02 10:00:00'),
+(3, 'sortie', 10, 'U', '2025-02-03 15:00:00'),
+(4, 'sortie', 20, 'U', '2025-02-05 16:00:00');
+
+INSERT INTO ingredient (name, unit_price, unit)
+VALUES
+('Sel', 2.5 , 'G'),
+('Riz', 3.5 , 'G');
+

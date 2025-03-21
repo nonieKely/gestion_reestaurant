@@ -9,7 +9,7 @@ CREATE TYPE Unit AS ENUM ('G', 'L', 'U');
 CREATE TABLE ingredient (
     id_ingredient SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    unit_price INTEGER NOT NULL,
+    unit_price NUMERIC(10,3) NOT NULL,
     unit Unit NOT NULL,
     update_datetime TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -25,13 +25,33 @@ CREATE TABLE dish_ingredient (
 );
 
 CREATE TABLE ingredientDate (
+    id_history SERIAL NOT NULL,
     id_ingredient INTEGER NOT NULL,
     name VARCHAR(255) NOT NULL,
-    price INTEGER NOT NULL,
-    unit Unit not null
+    price NUMERIC(10,3) NOT NULL,
+    unit Unit NOT NULL,
     date_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_ingredient) REFERENCES ingredient(id_ingredient)
 );
 
 
+CREATE TYPE Movement AS ENUM ('entrée', 'sortie');
+
+CREATE TABLE stock (
+    id_movement SERIAL PRIMARY KEY,
+    id_ingredient INTEGER NOT NULL,
+    movement Movement NOT NULL,
+    used_quantity NUMERIC(10,3) NOT NULL,
+    unit Unit NOT NULL,
+    date_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_ingredient) REFERENCES ingredient(id_ingredient)
+);
+
+CREATE TABLE available_stock(
+    id_available_stock SERIAL PRIMARY KEY,
+    id_ingredient INTEGER NOT NULL,
+    available_quantity NUMERIC(10,3) NOT NULL,
+    date_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_ingredient) REFERENCES ingredient(id_ingredient)
+);
 

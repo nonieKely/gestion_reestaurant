@@ -10,7 +10,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TestFilterIngredientPerWhateverYouWant {
+public class  TestFilterIngredientPerWhateverYouWant {
 
     @Test
     public void testFilterIngredientsByName() {
@@ -28,7 +28,7 @@ public class TestFilterIngredientPerWhateverYouWant {
         assertFalse(ingredients.isEmpty());
         assertEquals(1, ingredients.size());
         assertEquals("Saucisse", ingredients.get(0).getName());
-        assertEquals(20, ingredients.get(0).getUnit_price());
+        assertEquals(20.0, ingredients.get(0).getUnit_price(), 0.01);
         assertEquals(Unit.G, ingredients.get(0).getUnit());
     }
 
@@ -37,7 +37,7 @@ public class TestFilterIngredientPerWhateverYouWant {
         IngredientsDAO ingredientsDAO = new IngredientsDAO();
 
         List<Criterias> criteriasList = new ArrayList<>();
-        criteriasList.add(new Criterias("unit_price", "500,20000", null));
+        criteriasList.add(new Criterias("unit_price", "20000", null));
         criteriasList.add(new Criterias("update_datetime", "2024-01-01T00:00:00,2025-12-31T23:59:59", null));
 
         int pageSize = 10;
@@ -49,7 +49,7 @@ public class TestFilterIngredientPerWhateverYouWant {
         assertFalse(ingredients.isEmpty());
 
         assertTrue(ingredients.stream().allMatch(ingredient ->
-                ingredient.getUnit_price() >= 500 && ingredient.getUnit_price() <= 20000
+                ingredient.getUnit_price() >= 500.0 && ingredient.getUnit_price() <= 20000.0
         ));
 
         assertTrue(ingredients.stream().allMatch(ingredient ->
