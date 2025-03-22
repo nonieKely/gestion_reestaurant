@@ -51,7 +51,14 @@ public class DishOrderDAO {
         return dishOrder;
     }
 
-    public String addDishOrder(int id_order, Dish dish, int quantity) {
+    public String addDishOrder(Dish dish, int quantity) {
+        String orderStatus = new OrderDAO().AddOrder();
+        if (!orderStatus.equals("Order created successfully")) {
+            return "Erreur lors de la création de la commande : " + orderStatus;
+        }
+
+        int id_order = getLastOrderId();
+
         String sql2 = "INSERT INTO dish_order(id_order, id_dish, quantity) VALUES(?, ?, ?)";
 
         try (Connection connection = ConnectionDB.connection()) {
@@ -70,6 +77,20 @@ public class DishOrderDAO {
         } catch (SQLException e) {
             throw new RuntimeException("Erreur lors de l'ajout de la commande: " + e.getMessage(), e);
         }
+    }
+
+    private int getLastOrderId() {
+        String sql = "SELECT MAX(id_order) FROM one_order";
+        try (Connection connection = ConnectionDB.connection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erreur lors de la récupération de l'ID de la dernière commande: " + e.getMessage(), e);
+        }
+        return -1;
     }
 
 
